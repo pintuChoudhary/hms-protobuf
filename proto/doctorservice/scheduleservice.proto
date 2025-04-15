@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package doctorservice;
+
+option go_package = "github.com/hms/protogen/doctorservice;doctorservice";
+
+service DoctorScheduleService {
+    rpc GetDoctorSchedule(DoctorScheduleRequest) returns (DoctorScheduleResponse);
+}
+
+message DoctorScheduleRequest {
+    string DoctorId = 1;
+    string date = 2;
+}
+
+message DoctorScheduleResponse{
+    DoctorSchedule Schedule = 1;
+    string Error = 2;
+}
+
+message TimeSlot{
+    int32 Duration = 1;
+    string Type = 2;
+    int32 Capacity = 3;
+}
+
+message RegularHour{
+    string DayOfWeek = 1;
+    string StartTime = 2;
+    string EndTime = 3;
+}
+
+message TimeOff{
+    string StartTime = 1;
+    string EndTime = 2;
+    string Reason = 3;
+}
+
+message DoctorSchedule{
+    string DoctorId = 1;
+    string Date = 2;
+    bool Availability = 3; // No use
+    repeated TimeSlot TimeSlots = 4;
+    repeated RegularHour RegularHours = 5;
+    repeated TimeOff TimeOffs = 6;
+}
