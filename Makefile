@@ -17,4 +17,4 @@ all: $(PROTO_FILES)
 	done
 
 clean:
-	rm -rf $(OUT_DIR)
+	rm -rf $(OUT_DIR)/*
