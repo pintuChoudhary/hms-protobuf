@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package doctorservice;
 
-option go_package = "github.com/hms/protogen/doctorservice;doctorservice";
+option go_package = "./doctorservice;doctorservice";
 
 service DoctorScheduleService {
     rpc GetDoctorSchedule(DoctorScheduleRequest) returns (DoctorScheduleResponse);

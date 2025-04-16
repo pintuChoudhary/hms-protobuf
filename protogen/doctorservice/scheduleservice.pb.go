@@ -420,7 +420,7 @@ const file_doctorservice_scheduleservice_proto_rawDesc = "" +
 	"\fRegularHours\x18\x05 \x03(\v2\x1a.doctorservice.RegularHourR\fRegularHours\x122\n" +
 	"\bTimeOffs\x18\x06 \x03(\v2\x16.doctorservice.TimeOffR\bTimeOffs2y\n" +
 	"\x15DoctorScheduleService\x12`\n" +
-	"\x11GetDoctorSchedule\x12$.doctorservice.DoctorScheduleRequest\x1a%.doctorservice.DoctorScheduleResponseB5Z3github.com/hms/protogen/doctorservice;doctorserviceb\x06proto3"
+	"\x11GetDoctorSchedule\x12$.doctorservice.DoctorScheduleRequest\x1a%.doctorservice.DoctorScheduleResponseB\x1fZ\x1d./doctorservice;doctorserviceb\x06proto3"
 
 var (
 	file_doctorservice_scheduleservice_proto_rawDescOnce sync.Once
