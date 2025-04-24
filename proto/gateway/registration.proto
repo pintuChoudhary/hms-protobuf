@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package auditlogging;
+
+option go_package = "./apigateway;apigateway";
+
+service ServiceRegistry {
+  rpc Register(ServiceRegistrationRequest) returns (ServiceRegistrationResponse);
+  rpc Deregister(ServiceDeregistrationRequest) returns (ServiceDeregistrationResponse);
+}
+
+message ServiceRegistrationRequest {
+  string service_name = 1;
+  string grpc_endpoint = 2;
+  string http_endpoint = 3;
+  repeated string methods = 4;
+}
+
+message ServiceRegistrationResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ServiceDeregistrationRequest {
+  string service_name = 1;
+}
+
+message ServiceDeregistrationResponse {
+  bool success = 1;
+  string message = 2;
+}
