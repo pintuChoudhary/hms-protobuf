@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package auditlogging;
+
+option go_package = "./auditlogging;auditlogging";
+
+service AuditService {
+  rpc LogEvent(AuditEvent) returns (AuditResponse);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message AuditEvent {
+  string event_id = 1;
+  string service_name = 2;
+  string user_id = 3;
+  string action = 4;  // e.g., "CREATE", "UPDATE", "DELETE"
+  string resource = 5; // e.g., "PATIENT_RECORD", "APPOINTMENT"
+  string status = 6;   // e.g., "SUCCESS", "FAILURE"
+  string ip_address = 7;
+  string user_agent = 8;
+  string details = 9;
+  string timestamp = 10;
+}
+
+message AuditResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+}
