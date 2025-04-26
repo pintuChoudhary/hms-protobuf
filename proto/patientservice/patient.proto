@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package patientservice;
+
+option go_package = "./patientservice;patientservice";
+
+// Patient service
+service PatientService {
+    rpc GetPatients(GetPatientsRequest) returns (GetPatientsResponse);
+    rpc GetPatient(GetPatientRequest) returns (GetPatientResponse);
+    rpc GetPatientByMedicalID(GetPatientByMedicalIDRequest) returns (GetPatientResponse);
+    rpc CreatePatient(CreatePatientRequest) returns (CreatePatientResponse);
+    rpc UpdatePatient(UpdatePatientRequest) returns (UpdatePatientResponse);
+    rpc DeletePatient(DeletePatientRequest) returns (DeletePatientResponse);
+}
+
+// GetPatientsRequest
+message GetPatientsRequest {
+    string filter_name = 1;
+    string filter_email = 2;
+    string filter_contact = 3;
+    int32 page_number = 4;
+    int32 page_size = 5;
+}
+
+// GetPatientsResponse
+message GetPatientsResponse {
+    repeated Patient patients = 1;
+    int32 total_count = 2;
+}
+
+// GetPatientRequest
+message GetPatientRequest {
+    string patient_id = 1;
+}
+
+// GetPatientByMedicalIDRequest
+message GetPatientByMedicalIDRequest {
+    string medical_id = 1;
+}
+
+// GetPatientResponse
+message GetPatientResponse {
+    Patient patient = 1;
+}
+
+// CreatePatientRequest
+message CreatePatientRequest {
+    Patient patient = 1;
+}
+
+// CreatePatientResponse
+message CreatePatientResponse {
+    Patient patient = 1;
+}
+
+// UpdatePatientRequest
+message UpdatePatientRequest {
+    string patient_id = 1;
+    Patient patient = 2;
+}
+
+// UpdatePatientResponse
+message UpdatePatientResponse {
+    Patient patient = 1;
+}
+
+// DeletePatientRequest
+message DeletePatientRequest {
+    string patient_id = 1;
+}
+
+// DeletePatientResponse
+message DeletePatientResponse {
+    bool success = 1;
+}
+
+// Patient
+message Patient {
+    string id = 1;
+    string user_id = 2;
+    string name = 3;
+    string date_of_birth = 4;
+    int32 age = 5;
+    string gender = 6;
+    string contact = 7;
+    string medical_id = 8;
+    string nationality = 9;
+    string email = 10;
+    repeated string languages = 11;
+    repeated EmergencyContact emergency_contacts = 12;
+    repeated Diagnosis diagnoses = 13;
+    Address address = 14;
+    string created_at = 15;
+    string updated_at = 16;
+}
+
+// EmergencyContact
+message EmergencyContact {
+    string name = 1;
+    string relationship = 2;
+    string phone = 3;
+}
+
+// Diagnosis
+message Diagnosis {
+    string condition = 1;
+    string date = 2;
+}
+
+// Address
+message Address {
+    string street = 1;
+    string city = 2;
+    string state = 3;
+    string zip = 4;
+}

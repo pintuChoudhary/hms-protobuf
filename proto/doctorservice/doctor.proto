@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package doctorservice;
+
+option go_package = "./doctorservice;doctorservice";
+
+// Doctor service
+service DoctorService {
+    rpc GetDoctors(GetDoctorsRequest) returns (GetDoctorsResponse);
+    rpc GetDoctor(GetDoctorRequest) returns (GetDoctorResponse);
+    rpc CreateDoctor(CreateDoctorRequest) returns (CreateDoctorResponse);
+    rpc UpdateDoctor(UpdateDoctorRequest) returns (UpdateDoctorResponse);
+    rpc DeleteDoctor(DeleteDoctorRequest) returns (DeleteDoctorResponse);
+    rpc GetDoctorSchedule(GetDoctorScheduleRequest) returns (GetDoctorScheduleResponse);
+    rpc UpdateDoctorSchedule(UpdateDoctorScheduleRequest) returns (UpdateDoctorScheduleResponse);
+}
+
+// GetDoctorsRequest
+message GetDoctorsRequest {
+    string filter_name = 1;
+    string filter_specialization = 2;
+    int32 page_number = 3;
+    int32 page_size = 4;
+}
+
+// GetDoctorsResponse
+message GetDoctorsResponse {
+    repeated Doctor doctors = 1;
+    int32 total_count = 2;
+}
+
+// GetDoctorRequest
+message GetDoctorRequest {
+    string doctor_id = 1;
+}
+
+// GetDoctorResponse
+message GetDoctorResponse {
+    Doctor doctor = 1;
+}
+
+// CreateDoctorRequest
+message CreateDoctorRequest {
+    Doctor doctor = 1;
+}
+
+// CreateDoctorResponse
+message CreateDoctorResponse {
+    Doctor doctor = 1;
+}
+
+// UpdateDoctorRequest
+message UpdateDoctorRequest {
+    string doctor_id = 1;
+    Doctor doctor = 2;
+}
+
+// UpdateDoctorResponse
+message UpdateDoctorResponse {
+    Doctor doctor = 1;
+}
+
+// DeleteDoctorRequest
+message DeleteDoctorRequest {
+    string doctor_id = 1;
+}
+
+// DeleteDoctorResponse
+message DeleteDoctorResponse {
+    bool success = 1;
+}
+
+// GetDoctorScheduleRequest
+message GetDoctorScheduleRequest {
+    string doctor_id = 1;
+    string date = 2;
+}
+
+// GetDoctorScheduleResponse
+message GetDoctorScheduleResponse {
+    repeated Schedule schedules = 1;
+}
+
+// UpdateDoctorScheduleRequest
+message UpdateDoctorScheduleRequest {
+    string doctor_id = 1;
+    Schedule schedule = 2;
+}
+
+// UpdateDoctorScheduleResponse
+message UpdateDoctorScheduleResponse {
+    Schedule schedule = 1;
+}
+
+// Doctor
+message Doctor {
+    string id = 1;
+    string name = 2;
+    string gender = 3;
+    Address address = 4;
+    string specialization = 5;
+    string license_id = 6;
+    string date_of_birth = 7;
+    string email = 8;
+    string education = 9;
+    repeated string languages = 10;
+    string experience = 11;
+    repeated Procedure procedures = 12;
+    repeated Certification certifications = 13;
+    string contact = 14;
+    repeated WeeklySchedule regular_hours = 15;
+    repeated TimeSlot time_slots = 16;
+    repeated TimeOff time_offs = 17;
+    repeated AppointmentType appointment_types = 18;
+    bool availability = 19;
+    string created_at = 20;
+    string updated_at = 21;
+}
+
+// Address
+message Address {
+    string street = 1;
+    string city = 2;
+    string state = 3;
+    string zip = 4;
+    string country = 5;
+}
+
+// Procedure
+message Procedure {
+    string name = 1;
+    string expertise = 2;
+    int32 performed_count = 3;
+}
+
+// Certification
+message Certification {
+    string title = 1;
+    string date = 2;
+}
+
+// WeeklySchedule
+message WeeklySchedule {
+    string day_of_week = 1;
+    string start_time = 2;
+    string end_time = 3;
+}
+
+// TimeSlot
+message TimeSlot {
+    int32 duration = 1;
+    string type = 2;
+    int32 capacity = 3;
+}
+
+// TimeOff
+message TimeOff {
+    string start_time = 1;
+    string end_time = 2;
+    string reason = 3;
+}
+
+// AppointmentType
+enum AppointmentType {
+    Regular = 0;
+    Online = 1;
+}
+
+// Schedule
+message Schedule {
+    string id = 1;
+    string doctor_id = 2;
+    string patient_id = 3;
+    string date = 4;
+    string start_time = 5;
+    string end_time = 6;
+    string type = 7;
+    string status = 8;
+    string created_at = 9;
+    string updated_at = 10;
+}

@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package staff/pb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./staff/pb;staff/pb";
+
+// StaffType enum
+enum StaffType {
+  NURSE = 0;
+  ADMIN = 1;
+  HR = 2;
+  HOUSEKEEPING = 3;
+}
+
+// Staff message
+message Staff {
+  string id = 1;
+  string user_id = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string phone = 5;
+  StaffType staff_type = 6;
+  string department = 7;
+  google.protobuf.Timestamp hire_date = 8;
+  bool is_active = 9;
+  repeated Credential credentials = 10;
+  repeated Training trainings = 11;
+}
+
+// Credential message
+message Credential {
+  string license_number = 1;
+  string issuing_body = 2;
+  google.protobuf.Timestamp issue_date = 3;
+  google.protobuf.Timestamp expiry_date = 4;
+  string credential_url = 5;
+}
+
+// Training message
+message Training {
+  string course_id = 1;
+  string course_name = 2;
+  google.protobuf.Timestamp completed_date = 3;
+}
+
+// Schedule message
+message Schedule {
+  string id = 1;
+  string staff_id = 2;
+  google.protobuf.Timestamp start_time = 3;
+  google.protobuf.Timestamp end_time = 4;
+  string location = 5;
+  string shift_type = 6;
+}
+
+// Session message
+message Session {
+  google.protobuf.Timestamp clock_in = 1;
+  google.protobuf.Timestamp clock_out = 2;
+}
+
+// TimeEntry message
+message TimeEntry {
+  string id = 1;
+  google.protobuf.Timestamp date = 2;
+  string staff_id = 3;
+  repeated Session sessions = 4;
+  bool approved = 5;
+}
+
+// ClockInRequest message
+message ClockInRequest {
+  string staff_id = 1;
+}
+
+// ClockInResponse message
+message ClockInResponse {
+  google.protobuf.Timestamp clock_in = 1;
+}
+
+// ClockOutRequest message
+message ClockOutRequest {
+  string staff_id = 1;
+  google.protobuf.Timestamp clock_in = 2;
+}
+
+// ClockOutResponse message
+message ClockOutResponse {
+  google.protobuf.Timestamp clock_out = 1;
+}
+
+// StaffService service
+service StaffService {
+  rpc CreateStaff(Staff) returns (Staff) {}
+  rpc GetStaff(string) returns (Staff) {}
+  rpc UpdateStaff(Staff) returns (Staff) {}
+  rpc DeleteStaff(string) returns (google.protobuf.Empty) {}
+
+  rpc CreateSchedule(Schedule) returns (Schedule) {}
+  rpc GetSchedule(string) returns (Schedule) {}
+  rpc UpdateSchedule(Schedule) returns (Schedule) {}
+  rpc DeleteSchedule(string) returns (google.protobuf.Empty) {}
+
+  rpc CreateTimeEntry(TimeEntry) returns (TimeEntry) {}
+  rpc GetTimeEntry(string) returns (TimeEntry) {}
+  rpc UpdateTimeEntry(TimeEntry) returns (TimeEntry) {}
+  rpc DeleteTimeEntry(string) returns (google.protobuf.Empty) {}
+
+  rpc ClockIn(ClockInRequest) returns (ClockInResponse) {}
+  rpc ClockOut(ClockOutRequest) returns (ClockOutResponse) {}
+}
